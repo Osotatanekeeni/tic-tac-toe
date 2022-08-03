@@ -20,10 +20,15 @@ export default function Game() {
         ]
         for (let i = 0; i < lines.length; i++) {
             const [a, b, c] = lines[i]
+            
             if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+                document.getElementsByClassName("square")[a].style.backgroundColor = "green"
+                document.getElementsByClassName("square")[b].style.backgroundColor = "green"
+                document.getElementsByClassName("square")[c].style.backgroundColor = "green"
                 return squares[a]
             }
         }
+        
         return false;
     }
 
@@ -50,6 +55,9 @@ export default function Game() {
     }
 
     function handleRestartGame() {
+      for (let i = 0; i < squares.length; i++) {
+        document.getElementsByClassName("square")[i].style.backgroundColor = "white"
+      }
       setSquares(Array(9).fill(null))
       setCurrentPlayer("X")
     }
