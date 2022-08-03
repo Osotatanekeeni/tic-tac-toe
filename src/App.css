@@ -92,6 +92,10 @@
   background-color: grey;
 }
 
+.square:active {
+  transform: translateX(2px);
+}
+
 #play-again:hover {
   background-color: white;
   color: black;
