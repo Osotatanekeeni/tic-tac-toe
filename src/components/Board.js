@@ -3,10 +3,6 @@ import Square from './Square'
 
 export default function Board({ squares, onClick }) {
 
-    // function renderSquare(i) {
-    //     return <Square value={i} onClick={onClick} />
-    // }
-
   return (
     <div className='board'>
         {squares.map((square, index) => {

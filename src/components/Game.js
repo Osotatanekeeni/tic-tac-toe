@@ -5,10 +5,11 @@ export default function Game() {
 
 
     const [squares, setSquares] = useState(Array(9).fill(null))
-    const [currentPlayer, setCurrentPlayer] = useState("X")
-    let status; 
+    const [currentPlayer, setCurrentPlayer] = useState("X")    
+    let status;
+
     function calculateWinner() {
-        const lines = [
+        const winningSequence = [
             [0, 1, 2],
             [3, 4, 5],
             [6, 7, 8],
@@ -18,8 +19,8 @@ export default function Game() {
             [0, 4, 8],
             [2, 4, 6],
         ]
-        for (let i = 0; i < lines.length; i++) {
-            const [a, b, c] = lines[i]
+        for (let sequence of winningSequence) {
+            const [a, b, c] = sequence
             
             if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
                 document.getElementsByClassName("square")[a].style.backgroundColor = "green"
@@ -28,19 +29,18 @@ export default function Game() {
                 return squares[a]
             }
         }
-        
         return false;
     }
 
-    const winner = calculateWinner()
+
+    const winner = calculateWinner();
+    
     function handleCLickFunction(squareIndex) {
-      console.log(squares)
+      // TODO: 
+      // 1. Add functionality to play against the computer
+      // 2. Keep Score
 
-      if (squares[squareIndex] !== null || winner) return;
-
-      // let squareCopy = squares;
-      // squareCopy[squareIndex] = currentPlayer;
-      // setSquares(squareCopy)
+      if (squares[squareIndex] || winner) return;
 
       setSquares(squares.map((square, index) => {
         if (index === squareIndex) {
@@ -50,7 +50,7 @@ export default function Game() {
         }
       }
       ))
-      console.log(squares.length)
+      
       setCurrentPlayer(currentPlayer === "X" ? "O" : "X")
     }
 
@@ -59,21 +59,25 @@ export default function Game() {
         document.getElementsByClassName("square")[i].style.backgroundColor = "white"
       }
       setSquares(Array(9).fill(null))
-      setCurrentPlayer("X")
     }
 
     if (winner) { 
+      console.log(winner)
       status = `Winner: ${winner}`;
+      
     } else {
       status = `Next player: ${currentPlayer}`;
     }
 
     const boardIsFull = !squares.includes(null)
+
+    
   return (
     <div>
         <h3 id='status'>{status}</h3>
-        <Board squares={squares}  onClick={handleCLickFunction} />
-        
+        <div>
+          <Board squares={squares}  onClick={handleCLickFunction} />
+        </div>
         <br></br>
         <div>
         {(winner || boardIsFull) && <button id='play-again' onClick={handleRestartGame}>Play Again</button>}
